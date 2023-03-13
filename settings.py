@@ -1,5 +1,6 @@
 # File created by: Jaime Cesar Zorrilla
 
+
 # screen dimentions
 WIDTH = 800
 HEIGHT = 600
