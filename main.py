@@ -1,6 +1,5 @@
 # File created by: Jaime Cesar Zorrilla
 
-
 # import libs
 import pygame as pg
 import random
