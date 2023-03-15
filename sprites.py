@@ -9,6 +9,7 @@ from settings import *
 
 vec = pg.math.Vector2
 
+
 # create a player
 
 class Player(Sprite):

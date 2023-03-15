@@ -5,6 +5,7 @@
 WIDTH = 800
 HEIGHT = 600
 
+
 # game settings
 FPS = 30
 RUNNING = True
