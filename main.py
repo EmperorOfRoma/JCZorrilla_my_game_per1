@@ -7,16 +7,17 @@ import os
 # import settings 
 from settings import *
 from sprites import *
-
+from random import randint
 # from pg.sprite import Sprite
 
 # set up assets folders
 game_folder = os.path.dirname(__file__)
-img_folder = os.path.join(game_folder, "img")
+img_folder = os.path.join(game_folder, "images")
 
 def get_mouse_now():
     x,y = pg.mouse.get_pos()
     return (x,y)
+
 
 # init pg and create window
 pg.init()
@@ -32,6 +33,15 @@ enemies = pg.sprite.Group()
 # Player is instantiated here
 player = Player()
 invader = Mob()
+invader.vel = vec(randint(8,80),randint(8,80))
+
+for i in range(0,10):
+    m = Mob()
+    m.vel = vec(randint(8,80),randint(8,80))
+    all_sprites.add(m)
+    enemies.add(m)
+
+# invader.vel = (5, 5)
 # testSprite = Sprite()
 # testSprite.image = pg.Surface((50,50))
 # testSprite.image.fill(GREEN)

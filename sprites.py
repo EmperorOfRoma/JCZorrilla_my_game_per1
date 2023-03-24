@@ -55,30 +55,28 @@ class Mob(Sprite):
         self.image.fill(RED)
         self.rect = self.image.get_rect()
         self.pos = vec(WIDTH/2, HEIGHT/2)
-        self.vel = vec(0, 0)
+        self.vel = vec(5, 5)
         self.acc = vec(0, 0)
         self.cofric = 0.1
         self.canjump = False
     def behavior(self):
-        if self.pos.x < Player().rect.x:
-            self.acc.x = MOB_ACC
-        if self.pos.x > Player().rect.x:
-            self.acc.x = -MOB_ACC
-        if self.pos.y < Player().rect.y:
-            self.acc.y = MOB_ACC
-        if self.pos.y > Player().rect.y:
-            self.acc.y = -MOB_ACC
-    def update(self):
-        self.acc = self.vel * MOB_FRICTION
-        self.behavior()
-        self.vel += self.acc
-        self.pos += self.vel + 0.5 * self.acc
-        self.rect.center = self.pos
+        # self.pos.x += self.vel.x
+        # if self.pos.x < Player().rect.x:
+        #     self.acc.x = MOB_ACC
+        # if self.pos.x > Player().rect.x:
+        #     self.acc.x = -MOB_ACC
+        # if self.pos.y < Player().rect.y:
+        #     self.acc.y = MOB_ACC
+        # if self.pos.y > Player().rect.y:
+        #     self.acc.y = -MOB_ACC
         if self.rect.x > WIDTH:
-            self.vel *= -1
+            self.vel.x *= -1
         if self.rect.x < 0:
-            self.vel *= -1
+            self.vel.x *= -1
         if self.rect.y < 0:
-            self.vel *= -1
+            self.vel.y *= -1
         if self.rect.y > HEIGHT:
-            self.vel *= -1
+            self.vel.y *= -1
+    def update(self):
+        self.behavior()
+        self.rect.center = self.pos

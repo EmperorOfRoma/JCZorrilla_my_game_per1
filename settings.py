@@ -11,7 +11,7 @@ RUNNING = True
 
 # player attributes
 PLAYER_ACC = 1
-PLAYER_FRICTION = -0.5
+PLAYER_FRICTION = -0.9
 MOB_ACC = 0.5
 MOB_FRICTION = -0.5
 
