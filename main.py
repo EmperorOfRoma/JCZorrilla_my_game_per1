@@ -1,6 +1,34 @@
-# File created by: Jaime Cesar Zorrilla
+# File created by: Chris Cozort
+# Agenda:
+# gIT GITHUB    
+# Build file and folder structures
+# Create libraries
+# testing github changes
+# I changed something - I changed something else tooooo!
+
+# This file was created by: Chris Cozort
 # Sources: http://kidscancode.org/blog/2016/08/pygame_1-1_getting-started/
-# Sources: Chris Cozort
+# Sources: 
+
+'''
+My goal is:
+
+Player health
+When this reaches 0, game ends and restarts.
+
+Goomba mob
+A mob that moves slowly and is easily defeated, but can still damage.
+
+Respawning enemies
+Unsure if I want this, but an idea.
+
+Invisible wall
+Keep player on screen.
+
+Moving screen
+Make the map larger than what fits on sceen.
+
+'''
 
 # import libs
 import pygame as pg
