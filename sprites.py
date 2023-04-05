@@ -46,25 +46,11 @@ class Player(Sprite):
         self.rect.x -= 1
         if hits:
             self.vel.y = -PLAYER_JUMP
-    
-    def inbounds(self):
-        if self.rect.x > WIDTH - 50:
-            self.pos.x = WIDTH - 25
-            self.vel.x = 0
-            print("i am off the right side of the screen...")
-        if self.rect.x < 0:
-            self.pos.x = 25
-            self.vel.x = 0
-            print("i am off the left side of the screen...")
-        if self.rect.y > HEIGHT:
-            print("i am off the bottom of the screen")
-        if self.rect.y < 0:
-            print("i am off the top of the screen...")
     def mob_collide(self):
             hits = pg.sprite.spritecollide(self, self.game.enemies, True)
             if hits:
                 print("you collided with an enemy...")
-                self.game.score += 1
+                self.game.SCORE += 1
                 print(SCORE)
     def update(self):
         self.acc = vec(0, PLAYER_GRAV)
@@ -73,6 +59,13 @@ class Player(Sprite):
         self.vel += self.acc
         self.pos += self.vel + 0.5 * self.acc
         self.rect.midbottom = self.pos
+
+# # Font & Text
+# GAME_FONT = pg.freetype.Font("Qdbettercomicsans-jEEeG.ttf", 24)
+# class Text():
+#     def __init__(self, text, color):
+#         self.text_surface, rect = GAME_FONT.render(text, color)
+#         screen.blit(self.text_surface, (40, 250))
 
 class Mob(Sprite):
     def __init__(self,width,height, color):

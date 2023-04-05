@@ -1,4 +1,4 @@
-# File created by: Chris Cozort
+# File created by: Jaime Cesar Zorrilla
 # Agenda:
 # gIT GITHUB    
 # Build file and folder structures
@@ -17,7 +17,7 @@ Player health
 When this reaches 0, game ends and restarts.
 
 Goomba mob
-A mob that moves slowly and is easily defeated, but can still damage.
+A mob that moves slowly and is easily defeated, but can still damage. This comes with way to attack.
 
 Respawning enemies
 Unsure if I want this, but an idea.
@@ -43,8 +43,8 @@ game_folder = os.path.dirname(__file__)
 img_folder = os.path.join(game_folder, "img")
 
 # create game class in order to pass properties to the sprites file
-
 class Game:
+    # initializes the screen
     def __init__(self):
         # init game window etc.
         pg.init()
@@ -56,27 +56,23 @@ class Game:
         print(self.screen)
     def new(self):
         # starting a new game
-        self.score = 0
+        self.SCORE = 0
         self.all_sprites = pg.sprite.Group()
         self.platforms = pg.sprite.Group()
         self.enemies = pg.sprite.Group()
         self.player = Player(self)
-        self.plat1 = Platform(WIDTH, 50, 0, HEIGHT-50, (150,150,150), "normal")
-        # self.plat1 = Platform(WIDTH, 50, 0, HEIGHT-50, (150,150,150), "normal")
-        self.all_sprites.add(self.plat1)
-
-        self.platforms.add(self.plat1)
-        
+        # All sprites appear
         self.all_sprites.add(self.player)
         for plat in PLATFORM_LIST:
             p = Platform(*plat)
             self.all_sprites.add(p)
             self.platforms.add(p)
-        for i in range(0,10):
-            m = Mob(20,20,(0,255,0))
+        for i in range(0,1):
+            m = Mob(20,20,WHITE)
             self.all_sprites.add(m)
             self.enemies.add(m)
         self.run()
+    # plays game
     def run(self):
         self.playing = True
         while self.playing:
@@ -84,7 +80,7 @@ class Game:
             self.events()
             self.update()
             self.draw()
-    
+    # game inputs
     def events(self):
         for event in pg.event.get():
             if event.type == pg.QUIT:
@@ -94,19 +90,25 @@ class Game:
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_SPACE:
                     self.player.jump()
+    # how the game responds to certain situations
     def update(self):
         self.all_sprites.update()
-        if self.player.vel.y > 0:
-            hits = pg.sprite.spritecollide(self.player, self.platforms, False)
-            if hits:
-                if hits[0].variant == "disappearing":
-                    hits[0].kill()
-                elif hits[0].variant == "bouncey":
-                    self.player.pos.y = hits[0].rect.top
-                    self.player.vel.y = -PLAYER_JUMP
-                else:
-                    self.player.pos.y = hits[0].rect.top
-                    self.player.vel.y = 0
+        hits = pg.sprite.spritecollide(self.player, self.platforms, False)
+        if hits:
+            if hits[0].variant == "disappearing":
+                hits[0].kill()
+            elif hits[0].variant == "bouncey":
+                self.player.pos.y = hits[0].rect.top
+                self.player.vel.y = -PLAYER_JUMP
+            elif hits[0].variant == "leftwall":
+                self.player.pos.x = 10
+                self.player.vel.x = PLAYER_PUSH
+            elif hits[0].variant == "rightwall":
+                self.player.pos.x = WIDTH - 10
+                self.player.vel.x = -PLAYER_PUSH    
+            else:
+                self.player.pos.y = hits[0].rect.top
+                self.player.vel.y = 0
 
     def draw(self):
         self.screen.fill(BLUE)
