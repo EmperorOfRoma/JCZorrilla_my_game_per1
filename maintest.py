@@ -1,4 +1,4 @@
-# File created by: Jaime Cesar Zorrilla
+# File created by: Chris Cozort
 # Agenda:
 # gIT GITHUB    
 # Build file and folder structures
@@ -17,7 +17,7 @@ Player health
 When this reaches 0, game ends and restarts.
 
 Goomba mob
-A mob that moves slowly and is easily defeated, but can still damage. This comes with way to attack.
+A mob that moves slowly and is easily defeated, but can still damage.
 
 Respawning enemies
 Unsure if I want this, but an idea.
@@ -34,8 +34,8 @@ Make the map larger than what fits on sceen.
 import pygame as pg
 import os
 # import settings 
-from settings import *
-from sprites import *
+from settingstest import *
+from spritestest import *
 # from pg.sprite import Sprite
 
 # set up assets folders
@@ -110,9 +110,7 @@ class Game:
 
     def draw(self):
         self.screen.fill(BLUE)
-        self.draw_text("hello there...", 24, WHITE, WIDTH/2, HEIGHT/2)
         self.all_sprites.draw(self.screen)
-
         # is this a method or a function?
         pg.display.flip()
     def draw_text(self, text, size, color, x, y):
