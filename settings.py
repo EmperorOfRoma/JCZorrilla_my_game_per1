@@ -17,12 +17,12 @@ RUNNING = True
 # player attributes
 PLAYER_ACC = 1
 PLAYER_FRICTION = -0.5
-PLAYER_GRAV = 0.8
-PLAYER_JUMP = 20
+PLAYER_GRAV = 2
+PLAYER_JUMP = 35
 PLAYER_PUSH = 200
 MOB_ACC = 0.5
 MOB_FRICTION = -0.5
-
+ 
 SCORE = 0
 # define colors
 WHITE = (255, 255, 255)
@@ -36,11 +36,12 @@ LIGHTGREEN = (50, 255, 50)
 
 
 
-# Starting platforms
-PLATFORM_LIST = [(0, HEIGHT - 40, 100, 40, LIGHTGREEN, "normal"),
-                 (WIDTH / 2 - 50, HEIGHT * 3 / 4, 100, 20, GREEN, "bouncey"),
-                 (125, HEIGHT - 350, 100, 5, RED, "disappearing"),
+# These are the platforms that the game can use
+PLATFORM_LIST = [
+                (0, HEIGHT - 40, WIDTH/3, 40, LIGHTGREEN, "normal"),
+                 (WIDTH*2/3, HEIGHT - 40, WIDTH/3, 40, LIGHTGREEN, "normal"),
+                 (WIDTH / 2 - 50, HEIGHT * 3 / 4, 100, 20, BLUE, "bouncey"),
+                #  (125, HEIGHT - 350, 100, 5, RED, "disappearing"),
                  (350, 200, 100, 20, YELLOW, "normal"),
-                 (175, 100, 50, 20, (200,200,200), "normal"), 
-                 (-100, 0, 100, HEIGHT, YELLOW, "leftwall"),
-                 (WIDTH, 0, 100, HEIGHT, YELLOW, "rightwall")]
+                 #(175, 100, 50, 20, (200,200,200), "normal")
+                 ]

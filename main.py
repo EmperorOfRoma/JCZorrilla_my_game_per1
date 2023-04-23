@@ -6,7 +6,7 @@
 # testing github changes
 # I changed something - I changed something else tooooo!
 
-# This file was created by: Chris Cozort
+# Sources: Chris Cozort
 # Sources: http://kidscancode.org/blog/2016/08/pygame_1-1_getting-started/
 # Sources: 
 
@@ -16,17 +16,11 @@ My goal is:
 Player health
 When this reaches 0, game ends and restarts.
 
-Goomba mob
-A mob that moves slowly and is easily defeated, but can still damage. This comes with way to attack.
+Bullet mob
+A mob that moves across the screen ignoring platforms and damaging the player
 
-Respawning enemies
-Unsure if I want this, but an idea.
-
-Invisible wall
-Keep player on screen.
-
-Moving screen
-Make the map larger than what fits on sceen.
+Respawn
+In the case the player falls off the screen
 
 '''
 
@@ -43,7 +37,6 @@ game_folder = os.path.dirname(__file__)
 img_folder = os.path.join(game_folder, "img")
 
 # create game class in order to pass properties to the sprites file
-
 class Game:
     def __init__(self):
         # init game window etc.
@@ -55,28 +48,26 @@ class Game:
         self.running = True
         print(self.screen)
     def new(self):
-        # starting a new game
+        # starting a new game causes the below to reset or spawn in the manner described
         self.score = 0
         self.all_sprites = pg.sprite.Group()
         self.platforms = pg.sprite.Group()
-        self.enemies = pg.sprite.Group()
+        # self.enemies = pg.sprite.Group()
         self.player = Player(self)
-        self.plat1 = Platform(WIDTH, 50, 0, HEIGHT-50, (150,150,150), "normal")
         # self.plat1 = Platform(WIDTH, 50, 0, HEIGHT-50, (150,150,150), "normal")
-        self.all_sprites.add(self.plat1)
-
-        self.platforms.add(self.plat1)
-        
+        # self.all_sprites.add(self.plat1)
+        # self.platforms.add(self.plat1)        
         self.all_sprites.add(self.player)
         for plat in PLATFORM_LIST:
             p = Platform(*plat)
             self.all_sprites.add(p)
             self.platforms.add(p)
-        for i in range(0,10):
-            m = Mob(20,20,(0,255,0))
-            self.all_sprites.add(m)
-            self.enemies.add(m)
+        # for i in range(0,10):
+        #     m = Mob(20,20,(0,255,0))
+        #     self.all_sprites.add(m)
+        #     self.enemies.add(m)
         self.run()
+    # Make the game play
     def run(self):
         self.playing = True
         while self.playing:
@@ -84,7 +75,7 @@ class Game:
             self.events()
             self.update()
             self.draw()
-    
+    # Responses to different player inputs
     def events(self):
         for event in pg.event.get():
             if event.type == pg.QUIT:
@@ -94,6 +85,7 @@ class Game:
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_SPACE:
                     self.player.jump()
+    # the system applies these once every 30 secs, updating the game as the concurrent condtions require
     def update(self):
         self.all_sprites.update()
         if self.player.vel.y > 0:
@@ -107,14 +99,18 @@ class Game:
                 else:
                     self.player.pos.y = hits[0].rect.top
                     self.player.vel.y = 0
+        if self.player.pos.y > HEIGHT:
+            print(2)
+            self.player.pos.y = HEIGHT/2
+            self.player.pos.x = WIDTH/2
 
+    # makes visuals appear on screen
     def draw(self):
         self.screen.fill(BLUE)
         self.draw_text("hello there...", 24, WHITE, WIDTH/2, HEIGHT/2)
         self.all_sprites.draw(self.screen)
-
-        # is this a method or a function?
         pg.display.flip()
+    # makes text appear on screen
     def draw_text(self, text, size, color, x, y):
         font_name = pg.font.match_font('arial')
         font = pg.font.Font(font_name, size)
@@ -122,6 +118,7 @@ class Game:
         text_rect = text_surface.get_rect()
         text_rect.midtop = (x,y)
         self.screen.blit(text_surface, text_rect)
+    # this way, the game knows what the player has clicked on
     def get_mouse_now(self):
         x,y = pg.mouse.get_pos()
         return (x,y)

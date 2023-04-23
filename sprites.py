@@ -7,11 +7,10 @@ from random import randint
 vec = pg.math.Vector2
 
 # player class
-
 class Player(Sprite):
     def __init__(self, game):
         Sprite.__init__(self)
-        # these are the properties
+        # these are the properties of the player class
         self.game = game
         self.image = pg.Surface((50,50))
         self.image.fill(BLACK)
@@ -22,6 +21,7 @@ class Player(Sprite):
         self.acc = vec(0,0)
         self.cofric = 0.1
         self.canjump = False
+    # These are the actions taken by the Player Character (PC) when certain inputs are given by the player
     def input(self):
         keystate = pg.key.get_pressed()
         # if keystate[pg.K_w]:
@@ -44,28 +44,29 @@ class Player(Sprite):
         self.rect.x += 1
         hits = pg.sprite.spritecollide(self, self.game.platforms, False)
         self.rect.x -= 1
-        # if hits:
-        self.vel.y = -PLAYER_JUMP
+        if hits:
+            self.vel.y = -PLAYER_JUMP
     
-    def inbounds(self):
-        if self.rect.x > WIDTH - 50:
-            self.pos.x = WIDTH - 25
-            self.vel.x = 0
-            print("i am off the right side of the screen...")
-        if self.rect.x < 0:
-            self.pos.x = 25
-            self.vel.x = 0
-            print("i am off the left side of the screen...")
-        if self.rect.y > HEIGHT:
-            print("i am off the bottom of the screen")
-        if self.rect.y < 0:
-            print("i am off the top of the screen...")
-    def mob_collide(self):
-            hits = pg.sprite.spritecollide(self, self.game.enemies, True)
-            if hits:
-                print("you collided with an enemy...")
-                self.game.score += 1
-                print(SCORE)
+    # def inbounds(self):
+    #     if self.rect.x > WIDTH - 50:
+    #         self.pos.x = WIDTH - 25
+    #         self.vel.x = 0
+    #         print("i am off the right side of the screen...")
+    #     if self.rect.x < 0:
+    #         self.pos.x = 25
+    #         self.vel.x = 0
+    #         print("i am off the left side of the screen...")
+    #     if self.rect.y > HEIGHT:
+    #         print("i am off the bottom of the screen")
+    #     if self.rect.y < 0:
+    #         print("i am off the top of the screen...")
+    # def mob_collide(self):
+    #         hits = pg.sprite.spritecollide(self, self.game.enemies, True)
+    #         if hits:
+    #             print("you collided with an enemy...")
+    #             self.game.score += 1
+    #             print(SCORE)
+    # the system applies these once every 30 secs, updating the game as the concurrent condtions require
     def update(self):
         self.acc = vec(0, PLAYER_GRAV)
         self.acc.x = self.vel.x * PLAYER_FRICTION
@@ -73,10 +74,14 @@ class Player(Sprite):
         self.vel += self.acc
         self.pos += self.vel + 0.5 * self.acc
         self.rect.midbottom = self.pos
+        if self.pos.y < 0:
+            self.pos
 
+# mob class
 class Mob(Sprite):
     def __init__(self,width,height, color):
         Sprite.__init__(self)
+        # properties of the class
         self.width = width
         self.height = height
         self.image = pg.Surface((self.width,self.height))
@@ -88,9 +93,9 @@ class Mob(Sprite):
         self.vel = vec(randint(1,5),randint(1,5))
         self.acc = vec(1,1)
         self.cofric = 0.01
-    # ...
+    # keeps mobs on the screen
     def inbounds(self):
-        if self.rect.x > WIDTH:
+        if self.rect.x > WIDTH-self.width:
             self.vel.x *= -1
             # self.acc = self.vel * -self.cofric
         if self.rect.x < 0:
@@ -99,9 +104,10 @@ class Mob(Sprite):
         if self.rect.y < 0:
             self.vel.y *= -1
             # self.acc = self.vel * -self.cofric
-        if self.rect.y > HEIGHT:
+        if self.rect.y > HEIGHT-self.height:
             self.vel.y *= -1
             # self.acc = self.vel * -self.cofric
+    # the system applies these once every 30 secs, updating the game as the concurrent condtions require
     def update(self):
         self.inbounds()
         # self.pos.x += self.vel.x
@@ -109,11 +115,11 @@ class Mob(Sprite):
         self.pos += self.vel
         self.rect.center = self.pos
 
-# create a new platform class...
-
+# platform class
 class Platform(Sprite):
     def __init__(self, x, y, width, height, color, variant):
         Sprite.__init__(self)
+        # properties of the class
         self.width = width
         self.height = height
         self.image = pg.Surface((self.width,self.height))
