@@ -31,7 +31,7 @@ RED = (255, 0, 0)
 GREEN = (0, 155, 0)
 BLUE = (0, 0, 255)
 YELLOW = (255, 255,50)
-LIGHTBLUE = (50, 50, 255)
+LIGHTBLUE = (150, 150, 255)
 LIGHTGREEN = (50, 255, 50)
 
 
@@ -40,7 +40,7 @@ LIGHTGREEN = (50, 255, 50)
 PLATFORM_LIST = [
                 (0, HEIGHT - 40, WIDTH/3, 40, LIGHTGREEN, "normal"),
                  (WIDTH*2/3, HEIGHT - 40, WIDTH/3, 40, LIGHTGREEN, "normal"),
-                 (WIDTH / 2 - 50, HEIGHT * 3 / 4, 100, 20, BLUE, "bouncey"),
+                 (WIDTH / 2 - 50, HEIGHT * 3 / 4, 100, 20, LIGHTBLUE, "bouncey"),
                 #  (125, HEIGHT - 350, 100, 5, RED, "disappearing"),
                  (350, 200, 100, 20, YELLOW, "normal"),
                  #(175, 100, 50, 20, (200,200,200), "normal")
